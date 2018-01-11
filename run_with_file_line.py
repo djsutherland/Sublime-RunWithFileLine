@@ -14,14 +14,12 @@ class RunWithFileLineCommand(sublime_plugin.TextCommand):
         if settings is None:
             return False
 
-        if "syntax" not in settings:
-            return False
-
-        syn, ext = os.path.splitext(os.path.basename(
-            self.view.settings().get("syntax")))
-        assert ext in {'.sublime-syntax', '.tmLanguage'}
-        if syn != settings['syntax']:
-            return False
+        if "syntax" in settings:
+            syn, ext = os.path.splitext(os.path.basename(
+                self.view.settings().get("syntax")))
+            assert ext in {'.sublime-syntax', '.tmLanguage'}
+            if syn != settings['syntax']:
+                return False
 
         if "command" not in settings:
             return False
