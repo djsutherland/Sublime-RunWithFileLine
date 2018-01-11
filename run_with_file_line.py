@@ -11,7 +11,7 @@ class RunWithFileLineCommand(sublime_plugin.TextCommand):
 
     def is_enabled(self):
         settings = self.settings()
-        if settings is None:
+        if settings is None or "command" not in settings:
             return False
 
         if "syntax" in settings:
@@ -20,9 +20,6 @@ class RunWithFileLineCommand(sublime_plugin.TextCommand):
             assert ext in {'.sublime-syntax', '.tmLanguage'}
             if syn != settings['syntax']:
                 return False
-
-        if "command" not in settings:
-            return False
 
         return True
 
